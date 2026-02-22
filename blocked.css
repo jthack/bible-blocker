@@ -1,0 +1,428 @@
+/* ---- CSS Custom Properties (Light Mode) ---- */
+:root {
+  --bg: #F5EDDC;
+  --bg-surface: #FFFDF7;
+  --text: #2D4A3E;
+  --text-muted: #5E7F70;
+  --accent: #4A7A6A;
+  --accent-hover: #3B6355;
+  --accent-light: #E0EDE6;
+  --verse-num: #8BAA97;
+  --border: #D5CDBB;
+  --shadow: rgba(45, 74, 62, 0.06);
+  --success-bg: #E0EDE6;
+}
+
+/* ---- Dark Mode ---- */
+body.dark {
+  --bg: #1A2B20;
+  --bg-surface: #223328;
+  --text: #E2D9C4;
+  --text-muted: #9DB5A4;
+  --accent: #7AAF8B;
+  --accent-hover: #93C9A2;
+  --accent-light: #2A3E30;
+  --verse-num: #5E8A6A;
+  --border: #344A3C;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --success-bg: #253529;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ---- Top Bar ---- */
+.top-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  background: var(--accent-light);
+}
+
+/* Sun/moon icon switching */
+body.dark .sun-icon { display: none; }
+body:not(.dark) .moon-icon { display: none; }
+
+/* ---- Views ---- */
+.view {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  animation: fadeIn 0.4s ease;
+}
+
+.view.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Book Picker ---- */
+.picker-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-top: 1rem;
+}
+
+.picker-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.testament-section {
+  margin-bottom: 2rem;
+}
+
+.testament-section h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 0.5rem;
+}
+
+.book-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  font-family: inherit;
+}
+
+.book-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.book-card:active {
+  transform: translateY(0);
+}
+
+.book-card .chapter-count {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 0.15rem;
+}
+
+/* ---- Reading View ---- */
+.reading-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.progress-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.text-btn:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.chapter-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---- Chapter Text ---- */
+.chapter-text {
+  font-family: Georgia, "Times New Roman", "Noto Serif", serif;
+  font-size: 1.08rem;
+  line-height: 1.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---- ESV HTML Styles ---- */
+.chapter-text h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 2rem 0 0.75rem;
+}
+
+.chapter-text h3:first-child {
+  margin-top: 0;
+}
+
+.chapter-text p {
+  margin-bottom: 0.6rem;
+}
+
+.chapter-text .chapter-num,
+.chapter-text .verse-num {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--verse-num);
+  vertical-align: super;
+  line-height: 0;
+  user-select: none;
+}
+
+.chapter-text .woc {
+  /* Words of Christ — subtle emphasis */
+  color: var(--text);
+}
+
+.chapter-text .copyright {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.chapter-text .copyright:hover {
+  text-decoration: underline;
+}
+
+.chapter-text p:last-child {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ---- Loading ---- */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0;
+  color: var(--text-muted);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Error ---- */
+.error-message {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-muted);
+}
+
+.error-message p {
+  margin-bottom: 1rem;
+}
+
+.retry-btn {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.retry-btn:hover {
+  background: var(--accent);
+  color: var(--bg-surface);
+}
+
+/* ---- I Read It Button ---- */
+.read-btn-container {
+  text-align: center;
+  padding: 2.5rem 0 1rem;
+}
+
+.read-button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+
+.read-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px var(--shadow);
+}
+
+.read-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 6px var(--shadow);
+}
+
+/* ---- Success View ---- */
+.success-content {
+  text-align: center;
+  padding-top: 15vh;
+}
+
+.success-icon {
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  animation: scaleIn 0.4s ease;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.success-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.success-verse {
+  margin-top: 2.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.verse-ref {
+  font-style: normal;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .view {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+
+  .chapter-title {
+    font-size: 1.5rem;
+  }
+
+  .chapter-text {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+}

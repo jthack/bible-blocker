@@ -1,0 +1,224 @@
+/* ---- Reuse the same color tokens ---- */
+:root {
+  --bg: #F5EDDC;
+  --bg-surface: #FFFDF7;
+  --text: #2D4A3E;
+  --text-muted: #5E7F70;
+  --accent: #4A7A6A;
+  --accent-hover: #3B6355;
+  --accent-light: #E0EDE6;
+  --border: #D5CDBB;
+  --shadow: rgba(45, 74, 62, 0.06);
+  --danger: #B85450;
+  --danger-hover: #A04340;
+  --danger-light: #F5E0DF;
+}
+
+body.dark {
+  --bg: #1A2B20;
+  --bg-surface: #223328;
+  --text: #E2D9C4;
+  --text-muted: #9DB5A4;
+  --accent: #7AAF8B;
+  --accent-hover: #93C9A2;
+  --accent-light: #2A3E30;
+  --border: #344A3C;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #CF6B67;
+  --danger-hover: #E07E7A;
+  --danger-light: #3A2525;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ---- Top Bar ---- */
+.top-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 1.25rem;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  background: var(--accent-light);
+}
+
+body.dark .sun-icon { display: none; }
+body:not(.dark) .moon-icon { display: none; }
+
+/* ---- Layout ---- */
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.container > h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Cards ---- */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.help-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.help-text a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+.status-text {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* ---- Buttons ---- */
+.primary-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.primary-btn:hover {
+  background: var(--accent-hover);
+}
+
+.danger-btn {
+  background: var(--danger-light);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.danger-btn:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ---- Add Site Row ---- */
+.add-site-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.add-site-row input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.add-site-row input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.add-site-row input:focus {
+  border-color: var(--accent);
+}
+
+/* ---- Site List ---- */
+.site-list {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.site-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.site-item:last-child {
+  border-bottom: none;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+}
