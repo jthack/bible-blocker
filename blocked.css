@@ -207,14 +207,50 @@ body:not(.dark) .moon-icon { display: none; }
   text-decoration: underline;
 }
 
+/* ---- Chapter Navigation ---- */
+.chapter-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
 .chapter-title {
   font-size: 1.85rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.nav-btn {
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.nav-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
 }
 
 /* ---- Chapter Text ---- */

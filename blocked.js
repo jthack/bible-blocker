@@ -22,6 +22,8 @@
   const progressLabel   = document.getElementById('progress');
   const readBtn         = document.getElementById('read-btn');
   const switchBookBtn   = document.getElementById('switch-book-btn');
+  const prevChapterBtn  = document.getElementById('prev-chapter-btn');
+  const nextChapterBtn  = document.getElementById('next-chapter-btn');
   const themeToggle     = document.getElementById('theme-toggle');
   const settingsLink    = document.getElementById('settings-link');
 
@@ -117,14 +119,41 @@
 
   // ---- Reading View ----
 
+  function getMaxChapters() {
+    const bookInfo = BIBLE_BOOKS.find(b => b.name === currentBook);
+    return bookInfo ? bookInfo.chapters : 1;
+  }
+
+  function updateNavButtons() {
+    const max = getMaxChapters();
+    prevChapterBtn.disabled = currentChapter <= 1;
+    nextChapterBtn.disabled = currentChapter >= max;
+  }
+
   async function showReadingView() {
     showView('reading');
 
-    const bookInfo = BIBLE_BOOKS.find(b => b.name === currentBook);
-    const total = bookInfo ? bookInfo.chapters : '?';
+    const total = getMaxChapters();
 
     chapterRef.textContent = `${currentBook} ${currentChapter}`;
     progressLabel.textContent = `Chapter ${currentChapter} of ${total}`;
+    updateNavButtons();
+
+    await loadChapter(currentBook, currentChapter);
+  }
+
+  async function navigateToChapter(chapter) {
+    currentChapter = chapter;
+
+    // Save position so "I Read It" uses whatever chapter you're viewing
+    await chrome.storage.local.set({ currentChapter: chapter });
+
+    chapterRef.textContent = `${currentBook} ${currentChapter}`;
+    progressLabel.textContent = `Chapter ${currentChapter} of ${getMaxChapters()}`;
+    updateNavButtons();
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     await loadChapter(currentBook, currentChapter);
   }
@@ -203,6 +232,15 @@
       readBtn.disabled = false;
       readBtn.textContent = 'I Read It';
     }
+  });
+
+  // ---- Chapter Navigation ----
+  prevChapterBtn.addEventListener('click', () => {
+    if (currentChapter > 1) navigateToChapter(currentChapter - 1);
+  });
+
+  nextChapterBtn.addEventListener('click', () => {
+    if (currentChapter < getMaxChapters()) navigateToChapter(currentChapter + 1);
   });
 
   // ---- Switch Book ----

@@ -31,7 +31,7 @@ async function enableBlocking() {
       redirect: { extensionPath: '/blocked.html' }
     },
     condition: {
-      urlFilter: `||${domain}`,
+      requestDomains: [domain],
       resourceTypes: ['main_frame']
     }
   }));
@@ -158,6 +158,32 @@ chrome.alarms.create('dayCheck', { periodInMinutes: 5 });
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === 'dayCheck') {
     await checkAndUpdateBlocking();
+  }
+});
+
+// ---- Fallback: tabs.onUpdated catch-all ----
+// declarativeNetRequest can miss certain domains; this catches anything that slips through.
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (!changeInfo.url) return;
+  try {
+    const url = new URL(changeInfo.url);
+    if (url.protocol === 'chrome-extension:' || url.protocol === 'chrome:') return;
+
+    chrome.storage.local.get(['lastReadDate', 'blockedSites']).then(({ lastReadDate, blockedSites }) => {
+      if (lastReadDate === getTodayString()) return;
+
+      const sites = blockedSites || DEFAULT_BLOCKED_SITES;
+      const hostname = url.hostname;
+      const isBlocked = sites.some(domain =>
+        hostname === domain || hostname.endsWith('.' + domain)
+      );
+
+      if (isBlocked) {
+        chrome.tabs.update(tabId, { url: chrome.runtime.getURL('blocked.html') });
+      }
+    });
+  } catch (e) {
+    // invalid URL, ignore
   }
 });
 

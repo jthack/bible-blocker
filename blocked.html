@@ -52,7 +52,19 @@
       <button id="switch-book-btn" class="text-btn">Switch Book</button>
     </div>
 
-    <h1 id="chapter-reference" class="chapter-title"></h1>
+    <div class="chapter-nav">
+      <button id="prev-chapter-btn" class="nav-btn" title="Previous chapter" aria-label="Previous chapter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <h1 id="chapter-reference" class="chapter-title"></h1>
+      <button id="next-chapter-btn" class="nav-btn" title="Next chapter" aria-label="Next chapter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    </div>
 
     <div id="chapter-content" class="chapter-text">
       <div class="loading-spinner">
